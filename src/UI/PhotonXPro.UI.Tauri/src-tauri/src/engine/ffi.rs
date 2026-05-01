@@ -10,19 +10,34 @@ pub struct NativeEngine {
 lazy_static! {
     pub static ref ENGINE: Option<NativeEngine> = {
         unsafe {
-            // Development path - relative to the executable in src-tauri/target/debug
-            let lib_path = "../../../../../../build/Engine/Native/bin/Release/PhotonXPro.Engine.Native.dll";
-            match Library::new(lib_path) {
-                Ok(lib) => Some(NativeEngine { lib: Arc::new(lib) }),
-                Err(_) => {
-                    // Try current directory as fallback
-                    match Library::new("PhotonXPro.Engine.Native.dll") {
-                        Ok(lib) => Some(NativeEngine { lib: Arc::new(lib) }),
-                        Err(e) => {
-                            eprintln!("Failed to load native engine: {}", e);
-                            None
-                        }
+            // Priority 1: Current executable directory (Prod)
+            let exe_path = std::env::current_exe().ok();
+            let exe_dir = exe_path.as_ref().and_then(|p| p.parent());
+            
+            let mut search_paths = Vec::new();
+            if let Some(dir) = exe_dir {
+                search_paths.push(dir.join("PhotonXPro.Engine.Native.dll"));
+                search_paths.push(dir.join("resources").join("PhotonXPro.Engine.Native.dll"));
+            }
+            
+            // Priority 2: Hardcoded relative path (Dev)
+            search_paths.push(std::path::PathBuf::from("../../../../../../build/Engine/Native/bin/Release/PhotonXPro.Engine.Native.dll"));
+            search_paths.push(std::path::PathBuf::from("PhotonXPro.Engine.Native.dll"));
+
+            for path in search_paths {
+                if path.exists() {
+                    if let Ok(lib) = Library::new(&path) {
+                        return Some(NativeEngine { lib: Arc::new(lib) });
                     }
+                }
+            }
+            
+            // Fallback: system-wide search
+            match Library::new("PhotonXPro.Engine.Native.dll") {
+                Ok(lib) => Some(NativeEngine { lib: Arc::new(lib) }),
+                Err(e) => {
+                    eprintln!("Failed to load native engine: {}", e);
+                    None
                 }
             }
         }
