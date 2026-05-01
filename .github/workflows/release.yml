@@ -38,8 +38,14 @@ jobs:
 
       - name: Build C++ Native Engine
         run: |
-          cd src/Engine/PhotonXPro.Engine.Native
-          msbuild /p:Configuration=Release /p:Platform=x64
+          mkdir build_cpp
+          cd build_cpp
+          cmake ../src/Engine/PhotonXPro.Engine.Native
+          cmake --build . --config Release
+          
+          # Create the directory structure Tauri expects
+          mkdir -p ../build/Engine/Native/bin/Release
+          cp bin/Release/PhotonXPro.Engine.Native.dll ../build/Engine/Native/bin/Release/
 
       - name: install frontend dependencies
         run: |
