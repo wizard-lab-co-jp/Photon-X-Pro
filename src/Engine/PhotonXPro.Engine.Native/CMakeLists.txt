@@ -31,7 +31,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 target_compile_definitions(${PROJECT_NAME} PRIVATE PHOTONXPRO_ENGINE_NATIVE_EXPORTS)
 
 if(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 endif()
 
 # Set output directory to a standard location

@@ -44,8 +44,17 @@ jobs:
           cmake --build . --config Release
           
           # Create the directory structure Tauri expects
-          mkdir -p ../build/Engine/Native/bin/Release
-          cp bin/Release/PhotonXPro.Engine.Native.dll ../build/Engine/Native/bin/Release/
+          mkdir -p ../src/UI/PhotonXPro.UI.Tauri/build/Engine/Native/bin/Release
+          
+          # Find and copy the DLL (MSVC often puts it in Release/ subdirectory)
+          if (Test-Path "bin/Release/PhotonXPro.Engine.Native.dll") {
+            cp bin/Release/PhotonXPro.Engine.Native.dll ../src/UI/PhotonXPro.UI.Tauri/build/Engine/Native/bin/Release/
+          } elseif (Test-Path "Release/PhotonXPro.Engine.Native.dll") {
+            cp Release/PhotonXPro.Engine.Native.dll ../src/UI/PhotonXPro.UI.Tauri/build/Engine/Native/bin/Release/
+          } else {
+            echo "Error: DLL not found in expected locations."
+            exit 1
+          }
 
       - name: install frontend dependencies
         run: |
