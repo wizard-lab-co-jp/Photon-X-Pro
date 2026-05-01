@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="src/Core/PhotonXPro.Core.Orchestration/PhotonXPro.Core.Orchestration.fsproj" />
+  </Folder>
+  <Folder Name="/src/UI/">
+    <Project Path="src/UI/PhotonXPro.UI.Maui/PhotonXPro.UI.Maui.csproj" />
+  </Folder>
+</Solution>

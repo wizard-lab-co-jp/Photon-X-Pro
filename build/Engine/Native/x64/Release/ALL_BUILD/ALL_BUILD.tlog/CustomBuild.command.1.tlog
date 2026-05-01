@@ -1,0 +1,10 @@
+^C:\USERS\AREOL\ONEDRIVE - WIZARD株式会社\優香共有用\GNOSTICLIBRARY\PRODUCTION\PICKLEBALL\アプリ\PHOTON X PRO\SRC\ENGINE\PHOTONXPRO.ENGINE.NATIVE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/areol/OneDrive - Wizard株式会社/優香共有用/gnosticlibrary/Production/PickleBall/アプリ/Photon X Pro/src/Engine/PhotonXPro.Engine.Native" "-BC:/Users/areol/OneDrive - Wizard株式会社/優香共有用/gnosticlibrary/Production/PickleBall/アプリ/Photon X Pro/build/Engine/Native" --check-stamp-file "C:/Users/areol/OneDrive - Wizard株式会社/優香共有用/gnosticlibrary/Production/PickleBall/アプリ/Photon X Pro/build/Engine/Native/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

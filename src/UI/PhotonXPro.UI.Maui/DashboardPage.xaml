@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PhotonXPro.UI.Maui.ViewModels"
+             xmlns:conv="clr-namespace:PhotonXPro.UI.Maui.Converters"
+             x:Class="PhotonXPro.UI.Maui.DashboardPage"
+             x:DataType="vm:MainViewModel"
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False"
+             Title="Photon X Pro">
+
+    <ContentPage.Resources>
+        <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
+        
+        <Style x:Key="ProIconStyle" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="#999999" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="ProIconButtonStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="#999999" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HeightRequest" Value="32" />
+            <Setter Property="WidthRequest" Value="32" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#007ACC" />
+                                <Setter Property="Scale" Value="1.2" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ProToolbarButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="#EEEEEE" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="HeightRequest" Value="32" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#333333" />
+                                <Setter Property="Scale" Value="1.02" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#444444" />
+                                <Setter Property="Scale" Value="0.95" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ProLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#EEEEEE" />
+            <Setter Property="FontSize" Value="10" />
+        </Style>
+
+        <Style x:Key="ProLabelMutedStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#666666" />
+            <Setter Property="FontSize" Value="9" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="32, 42, *, 24">
+        <!-- Zone 1: Application Header / Multi-Tabs -->
+        <Grid Grid.Row="0" BackgroundColor="#222222" ColumnDefinitions="Auto, *">
+            <HorizontalStackLayout Grid.Column="0" VerticalOptions="Fill" Spacing="0">
+                <Label Text="PHOTON X" VerticalOptions="Center" TextColor="#007ACC" FontAttributes="Bold" FontSize="11" Margin="12,0,24,0" />
+                <!-- Dynamic Tabs Container -->
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Documents}" VerticalOptions="Fill">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:DocumentViewModel">
+                            <Grid WidthRequest="160" BackgroundColor="#1A1A1A" Padding="12,0">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SelectDocumentCommand}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <BoxView WidthRequest="1" HorizontalOptions="Start" Color="#333333" />
+                                <BoxView WidthRequest="1" HorizontalOptions="End" Color="#333333" />
+                                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                    <Label Text="&#xE8B7;" FontFamily="Segoe Fluent Icons" FontSize="11" TextColor="#007ACC" />
+                                    <Label Text="{Binding FileName}" FontSize="10" TextColor="#EEEEEE" LineBreakMode="TailTruncation" MaxLines="1" WidthRequest="100" />
+                                    <Button Text="&#xE711;" FontFamily="Segoe Fluent Icons" FontSize="8" TextColor="#666666" BackgroundColor="Transparent" Padding="0" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=CloseDocumentCommand}" CommandParameter="{Binding .}" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+                <Label Text="+" FontSize="16" VerticalOptions="Center" TextColor="#666666" Margin="12,0" />
+            </HorizontalStackLayout>
+            <!-- Bottom Border Line -->
+            <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="End" Color="#333333" />
+        </Grid>
+
+        <!-- Zone 2: Professional Ribbon (Replaced Border with Grid) -->
+        <Grid Grid.Row="1" BackgroundColor="#1A1A1A" ColumnDefinitions="Auto, *, Auto">
+            <HorizontalStackLayout Grid.Column="0" Padding="12,0" Spacing="4" VerticalOptions="Center">
+                <Button Text="&#xE8B7; Open" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" Command="{Binding OpenFileCommand}" />
+                <Button Text="&#xE74E; Save" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" Command="{Binding SaveCommand}" />
+                <BoxView WidthRequest="1" HeightRequest="18" Color="#333333" VerticalOptions="Center" Margin="4,0" />
+                <Button Text="&#xE748; Combine" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" Command="{Binding CombineFilesCommand}" />
+                <Button Text="&#xE70F; Edit" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" />
+                <Button Text="&#xED48; Sign" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" />
+                <Button Text="&#xE8C1; Stamp" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" Command="{Binding ToggleStampModeCommand}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Column="2" Padding="12,0" Spacing="4" VerticalOptions="Center">
+                <Button Text="&#xE713; Settings" FontFamily="Segoe Fluent Icons" Style="{StaticResource ProToolbarButtonStyle}" />
+            </HorizontalStackLayout>
+            <!-- Bottom Border Line -->
+            <BoxView Grid.ColumnSpan="3" HeightRequest="1" VerticalOptions="End" Color="#333333" />
+        </Grid>
+
+        <!-- Zone 3: High-Density Multi-Pane Workspace -->
+        <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto">
+            
+            <!-- Navigation Sidebar (Left) -->
+            <Grid Grid.Column="0" ColumnDefinitions="32, 280" IsVisible="{Binding IsLeftPanelOpen}">
+                <Grid Grid.Column="0" BackgroundColor="#222222">
+                    <VerticalStackLayout Spacing="20" Padding="0,16">
+                        <Button Text="&#xE8A9;" Style="{StaticResource ProIconButtonStyle}" TextColor="#007ACC" />
+                        <Button Text="&#xE8A4;" Style="{StaticResource ProIconButtonStyle}" />
+                        <Button Text="&#xE8B0;" Style="{StaticResource ProIconButtonStyle}" />
+                        <Button Text="&#xE71D;" Style="{StaticResource ProIconButtonStyle}" />
+                    </VerticalStackLayout>
+                </Grid>
+                <Grid Grid.Column="1" BackgroundColor="#1A1A1A" RowDefinitions="Auto, *">
+                    <BoxView WidthRequest="1" HorizontalOptions="Start" Color="#333333" />
+                    <BoxView WidthRequest="1" HorizontalOptions="End" Color="#333333" />
+                    
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="12,8" BackgroundColor="#222222">
+                        <Label Text="PAGES" TextColor="#999999" FontSize="10" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Button Grid.Column="1" Text="&#xE76B;" FontFamily="Segoe Fluent Icons" BackgroundColor="Transparent" TextColor="#666666" Command="{Binding ToggleLeftPanelCommand}" HeightRequest="16" WidthRequest="16" Padding="0" />
+                    </Grid>
+                    
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding Pages}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="12" HorizontalItemSpacing="8" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:PageViewModel">
+                                <Grid RowDefinitions="Auto, Auto, Auto" Padding="8">
+                                    <FlyoutBase.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Rotate 90 CW" />
+                                            <MenuFlyoutItem Text="Delete Page" Command="{Binding DeleteCommand}" />
+                                        </MenuFlyout>
+                                    </FlyoutBase.ContextFlyout>
+                                    <Grid Grid.Row="0" HeightRequest="140" WidthRequest="100" BackgroundColor="White">
+                                        <BoxView Color="#333333" HeightRequest="1" VerticalOptions="Start" />
+                                        <BoxView Color="#333333" HeightRequest="1" VerticalOptions="End" />
+                                        <BoxView Color="#333333" WidthRequest="1" HorizontalOptions="Start" />
+                                        <BoxView Color="#333333" WidthRequest="1" HorizontalOptions="End" />
+                                        
+                                        <Grid.GestureRecognizers>
+                                            <DragGestureRecognizer DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ItemDraggedCommand}" DragStartingCommandParameter="{Binding .}" />
+                                            <DropGestureRecognizer DropCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ItemDroppedCommand}" DropCommandParameter="{Binding .}" />
+                                        </Grid.GestureRecognizers>
+                                        <Image Source="{Binding Thumbnail}" Aspect="AspectFit" />
+                                    </Grid>
+                                    <Label Grid.Row="1" Text="{Binding PageLabel}" HorizontalOptions="Center" TextColor="#EEEEEE" FontSize="9" Margin="0,4,0,0" />
+                                    <Label Grid.Row="2" Text="{Binding PageSize}" HorizontalOptions="Center" TextColor="#666666" FontSize="8" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Grid>
+
+            <!-- Main Viewport with HUD -->
+            <Grid Grid.Column="1" BackgroundColor="#0A0A0A">
+                <ScrollView>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="40">
+                        <Grid BackgroundColor="White" WidthRequest="595" HeightRequest="842">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDocumentTapped" />
+                                <PointerGestureRecognizer PointerMoved="OnPointerMoved" />
+                            </Grid.GestureRecognizers>
+                            <Image Source="{Binding CurrentPageImage}" Aspect="AspectFit" IsVisible="{Binding IsDocumentLoaded}" />
+                            <Label Text="{Binding LoadedFileName}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#666666" FontSize="14" IsVisible="{Binding IsDocumentLoaded, Converter={StaticResource InverseBoolConverter}}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </ScrollView>
+                
+                <!-- Floating Pro-HUD (Simplified Border) -->
+                <Grid VerticalOptions="Start" HorizontalOptions="Start" Margin="12" BackgroundColor="#CC111111" Padding="12" WidthRequest="160">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="ENGINE STATS" FontSize="9" FontAttributes="Bold" TextColor="#007ACC" />
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Render Mode:" Style="{StaticResource ProLabelMutedStyle}" />
+                            <Label Text="{Binding RenderMode}" Style="{StaticResource ProLabelStyle}" TextColor="#90EE90" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Draw Calls:" Style="{StaticResource ProLabelMutedStyle}" />
+                            <Label Text="{Binding DrawCalls}" Style="{StaticResource ProLabelStyle}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Floating Bottom Controls -->
+                <Grid VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,24" BackgroundColor="#DD222222" HeightRequest="36" Padding="8,0">
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                        <Button Text="&#xE71F;" Style="{StaticResource ProIconButtonStyle}" FontSize="12" />
+                        <Label Text="100%" Style="{StaticResource ProLabelStyle}" VerticalOptions="Center" WidthRequest="36" HorizontalTextAlignment="Center" />
+                        <Button Text="&#xE710;" Style="{StaticResource ProIconButtonStyle}" FontSize="12" />
+                        <BoxView WidthRequest="1" HeightRequest="14" Color="#333333" VerticalOptions="Center" Margin="4,0" />
+                        <Button Text="&#xE72B;" Command="{Binding PrevPageCommand}" Style="{StaticResource ProIconButtonStyle}" FontSize="12" />
+                        <Label Text="{Binding PageIndicator}" Style="{StaticResource ProLabelStyle}" VerticalOptions="Center" WidthRequest="80" HorizontalTextAlignment="Center" />
+                        <Button Text="&#xE72A;" Command="{Binding NextPageCommand}" Style="{StaticResource ProIconButtonStyle}" FontSize="12" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Grid>
+
+            <!-- Property Inspector Sidebar (Right) -->
+            <Grid Grid.Column="2" BackgroundColor="#1A1A1A" WidthRequest="260" IsVisible="{Binding IsRightPanelOpen}">
+                <BoxView WidthRequest="1" HorizontalOptions="Start" Color="#333333" />
+                <Grid RowDefinitions="Auto, *">
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="12,8" BackgroundColor="#222222">
+                        <Label Text="TOOLS &amp; PROPERTIES" TextColor="#999999" FontSize="10" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Button Grid.Column="1" Text="&#xE76C;" FontFamily="Segoe Fluent Icons" BackgroundColor="Transparent" TextColor="#666666" Command="{Binding ToggleRightPanelCommand}" HeightRequest="16" WidthRequest="16" Padding="0" />
+                    </Grid>
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Padding="12" Spacing="10">
+                            <Label Text="PROPERTY INSPECTOR" Style="{StaticResource ProLabelMutedStyle}" FontAttributes="Bold" />
+                            <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto" RowSpacing="6">
+                                <Label Grid.Row="0" Grid.Column="0" Text="Cursor Pos:" Style="{StaticResource ProLabelMutedStyle}" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding CursorPos}" Style="{StaticResource ProLabelStyle}" HorizontalOptions="End" />
+                                <Label Grid.Row="1" Grid.Column="0" Text="Encryption:" Style="{StaticResource ProLabelMutedStyle}" />
+                                <Label Grid.Row="1" Grid.Column="1" Text="AES-256" Style="{StaticResource ProLabelStyle}" TextColor="#90EE90" HorizontalOptions="End" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- Zone 4: Ultra-Thin Status Bar -->
+        <Grid Grid.Row="3" BackgroundColor="#007ACC" ColumnDefinitions="*, Auto">
+            <HorizontalStackLayout Grid.Column="0" Padding="12,0" Spacing="16" VerticalOptions="Center">
+                <Label Text="{Binding StatusText}" TextColor="White" FontSize="9" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Column="1" Padding="12,0" Spacing="12" VerticalOptions="Center">
+                <Label Text="SIMD: AVX-512 ACTIVE" TextColor="#90EE90" FontSize="9" FontAttributes="Bold" />
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

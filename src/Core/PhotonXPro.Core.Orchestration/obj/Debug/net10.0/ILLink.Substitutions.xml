@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <assembly fullname="PhotonXPro.Core.Orchestration">
+    <resource name="FSharpSignatureData.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedData.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpSignatureDataB.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedDataB.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpOptimizationData.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedData.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpOptimizationDataB.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedDataB.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpOptimizationInfo.PhotonXPro.Core.Orchestration" action="remove"></resource>
+    <resource name="FSharpSignatureInfo.PhotonXPro.Core.Orchestration" action="remove"></resource>
+  </assembly>
+</linker>

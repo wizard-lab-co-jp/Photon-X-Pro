@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\HardwareDetector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\PdfBinaryParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\HapRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\ImageEncoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\src\PdfSigner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\HardwareDetector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\PdfBinaryParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\HapRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\ImageEncoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\PdfSigner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\include\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\src\Engine\PhotonXPro.Engine.Native\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{39FD5935-33C6-3F76-BCBD-386690E40EDF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{670AD658-9132-3651-829A-EB978147A2C1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

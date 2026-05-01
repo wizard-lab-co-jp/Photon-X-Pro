@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\build\Engine\Native\x64\Release\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\areol\OneDrive - Wizard株式会社\優香共有用\gnosticlibrary\Production\PickleBall\アプリ\Photon X Pro\build\Engine\Native\bin\Release\PhotonXPro.Engine.Native.dll</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
