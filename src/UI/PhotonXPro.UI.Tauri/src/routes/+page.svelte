@@ -290,7 +290,13 @@
   }
 </script>
 
-<div class="h-screen w-screen flex flex-col overflow-hidden select-none text-text-primary bg-workspace" onkeydown={handleKeyDown} tabindex="-1">
+<div 
+  role="application"
+  aria-label="Photon X Pro PDF Workspace"
+  class="h-screen w-screen flex flex-col overflow-hidden select-none text-text-primary bg-workspace" 
+  onkeydown={handleKeyDown} 
+  tabindex="-1"
+>
   <!-- Title Bar / Tabs -->
   <div class="h-8 adobe-toolbar flex items-center px-2 justify-between drag-region shrink-0">
     <div class="flex items-center space-x-4 h-full no-drag">
@@ -464,6 +470,8 @@
     {/if}
 
     <div 
+      role="main"
+      aria-label="PDF Content Viewer"
       class="flex-1 overflow-auto flex justify-center p-8 relative scroll-smooth bg-workspace/50 {currentTool === 'Hand' ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : ''}"
       onmousedown={handleMouseDown}
       onmousemove={handleMouseMove}
@@ -624,7 +632,7 @@
   </div>
 </div>
 
-<CombineModal bind:isOpen={combineModalOpen} onComplete={(path) => openFile(path)} />
+<CombineModal bind:isOpen={combineModalOpen} onComplete={(path: string) => openFile(path)} />
 
 <style>
   :global(.drag-region) {

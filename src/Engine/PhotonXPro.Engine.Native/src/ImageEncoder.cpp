@@ -10,13 +10,13 @@ using namespace Windows::Storage::Streams;
 using namespace Windows::Graphics::Imaging;
 
 extern "C" {
-    PHOTON_API bool EncodeToWebP(const uint8_t* rgba, int32_t width, int32_t height, int32_t stride, float quality, uint8_t** outData, int32_t* outSize) {
+    bool EncodeToWebP(const uint8_t* rgba, int32_t width, int32_t height, int32_t stride, float quality, uint8_t** outData, int32_t* outSize) {
         (void)quality;
         // Simplified: use PNG encoder as fallback for WebP in this scratch version
         return EncodeToPNG(rgba, width, height, stride, outData, outSize);
     }
 
-    PHOTON_API bool EncodeToPNG(const uint8_t* rgba, int32_t width, int32_t height, int32_t stride, uint8_t** outData, int32_t* outSize) {
+    bool EncodeToPNG(const uint8_t* rgba, int32_t width, int32_t height, int32_t stride, uint8_t** outData, int32_t* outSize) {
         try {
             InMemoryRandomAccessStream stream;
             auto encoder = BitmapEncoder::CreateAsync(BitmapEncoder::PngEncoderId(), stream).get();
@@ -48,7 +48,7 @@ extern "C" {
         }
     }
 
-    PHOTON_API void FreeEncodedData(uint8_t* data) {
+    void FreeEncodedData(uint8_t* data) {
         if (data) free(data);
     }
 }

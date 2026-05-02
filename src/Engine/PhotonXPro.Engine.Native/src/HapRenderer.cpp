@@ -21,11 +21,11 @@ using namespace Windows::Graphics::Imaging;
 static int32_t s_renderPath = 0; // 0: Auto
 
 extern "C" {
-    PHOTON_API void SetRenderPath(int32_t pathType) {
+    void SetRenderPath(int32_t pathType) {
         s_renderPath = pathType;
     }
 
-    PHOTON_API void BlendHankoSIMD(uint8_t* buffer, int32_t destW, int32_t destH, int32_t destStride, const uint8_t* stamp, int32_t stampW, int32_t stampH, int32_t posX, int32_t posY) {
+    void BlendHankoSIMD(uint8_t* buffer, int32_t destW, int32_t destH, int32_t destStride, const uint8_t* stamp, int32_t stampW, int32_t stampH, int32_t posX, int32_t posY) {
         // Simple bounds check and clipping
         int32_t startY = std::max(0, posY);
         int32_t endY = std::min(destH, posY + stampH);
@@ -55,7 +55,7 @@ extern "C" {
         }
     }
 
-    PHOTON_API bool RenderPage(int32_t pageIndex, uint8_t* buffer, int32_t width, int32_t height, int32_t stride) {
+    bool RenderPage(int32_t pageIndex, uint8_t* buffer, int32_t width, int32_t height, int32_t stride) {
         try {
             const char* path = GetCurrentPdfPath();
             if (!path || strlen(path) == 0) return false;

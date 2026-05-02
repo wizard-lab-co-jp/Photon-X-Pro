@@ -80,7 +80,7 @@ static void ParseXRefTable(uint64_t offset) {
 }
 
 extern "C" {
-    PHOTON_API bool OpenPdf(const char* filePath) {
+    bool OpenPdf(const char* filePath) {
         s_xrefMap.clear();
         s_pdfVersion = 0;
         s_currentFilePath = filePath;
@@ -122,7 +122,7 @@ extern "C" {
         return true;
     }
 
-    PHOTON_API void ClosePdf() {
+    void ClosePdf() {
         if (s_pData) UnmapViewOfFile(s_pData);
         if (s_hMapping) CloseHandle(s_hMapping);
         if (s_hFile != INVALID_HANDLE_VALUE) CloseHandle(s_hFile);
@@ -133,11 +133,11 @@ extern "C" {
         s_xrefMap.clear();
     }
 
-    PHOTON_API int GetPdfVersion() {
+    int GetPdfVersion() {
         return s_pdfVersion;
     }
 
-    PHOTON_API int GetPageCount() {
+    int GetPageCount() {
         if (!s_pData || s_fileSize < 10) return 0;
 
         // More robust: Find the Root object from the trailer first
@@ -161,17 +161,17 @@ extern "C" {
         return atoi(countPtr);
     }
 
-    PHOTON_API uint64_t GetObjectOffset(int32_t objId) {
+    uint64_t GetObjectOffset(int32_t objId) {
         auto it = s_xrefMap.find(objId);
         if (it != s_xrefMap.end()) return it->second;
         return 0;
     }
 
-    PHOTON_API const char* GetCurrentPdfPath() {
+    const char* GetCurrentPdfPath() {
         return s_currentFilePath.c_str();
     }
 
-    PHOTON_API bool MergePdfs(const char** inputPaths, int32_t count, const char* outputPath) {
+    bool MergePdfs(const char** inputPaths, int32_t count, const char* outputPath) {
         try {
             std::ofstream out(outputPath, std::ios::binary);
             if (!out) return false;
@@ -203,7 +203,7 @@ extern "C" {
         }
     }
 
-    PHOTON_API bool SaveWithPageDeletion(const char* outputPath, const int32_t* deletedPageIndices, int32_t deletedCount) {
+    bool SaveWithPageDeletion(const char* outputPath, const int32_t* deletedPageIndices, int32_t deletedCount) {
         (void)deletedPageIndices; (void)deletedCount;
         // Simple copy for now as a "Save As"
         try {
