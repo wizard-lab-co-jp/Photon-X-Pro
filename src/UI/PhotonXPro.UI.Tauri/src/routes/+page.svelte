@@ -290,6 +290,7 @@
   }
 </script>
 
+<!-- svelte:ignore a11y-no-noninteractive-element-interactions -->
 <div 
   role="application"
   aria-label="Photon X Pro PDF Workspace"
@@ -469,6 +470,7 @@
       </div>
     {/if}
 
+    <!-- svelte:ignore a11y-no-noninteractive-element-interactions -->
     <div 
       role="main"
       aria-label="PDF Content Viewer"

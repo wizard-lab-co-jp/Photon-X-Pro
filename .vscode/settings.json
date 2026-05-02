@@ -1,3 +1,5 @@
 {
-    "cmake.sourceDirectory": "C:/Users/areol/OneDrive - Wizard株式会社/優香共有用/gnosticlibrary/Production/PickleBall/アプリ/Photon X Pro/src/Engine/PhotonXPro.Engine.Native"
+    "cmake.sourceDirectory": "C:/Users/areol/OneDrive - Wizard株式会社/優香共有用/gnosticlibrary/Production/PickleBall/アプリ/Photon X Pro/src/Engine/PhotonXPro.Engine.Native",
+    "scss.validate": false,
+    "css.validate": false
 }

@@ -1,0 +1,10 @@
+CompileFlags:
+  Add:
+    - "--target=x86_64-pc-windows-msvc"
+    - "-fms-compatibility"
+    - "-fms-extensions"
+    - "-D_MSC_VER=1940"
+    - "-DWINRT_LEAN_AND_MEAN"
+    - "-DPHOTONXPRO_ENGINE_NATIVE_EXPORTS"
+  Remove:
+    - "-W*"

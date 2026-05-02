@@ -4,7 +4,7 @@
     #ifdef PHOTONXPRO_ENGINE_NATIVE_EXPORTS
         #define PHOTON_API __declspec(dllexport)
     #else
-        #define PHOTON_API __declspec(dllimport)
+        #define PHOTON_API 
     #endif
 #else
     #define PHOTON_API __attribute__((visibility("default")))
