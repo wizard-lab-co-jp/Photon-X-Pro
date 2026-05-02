@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
   import { Window } from "@tauri-apps/api/window";
-  import { slide } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
   import { 
     File, 
@@ -22,7 +22,12 @@
     X,
     Minus,
     Square,
-    Copy
+    Copy,
+    Plus,
+    Check,
+    FilePdf,
+    BoundingBox,
+    Lightning
   } from "phosphor-svelte";
 
   import { open, save } from "@tauri-apps/plugin-dialog";
@@ -33,6 +38,7 @@
 
   let leftPanelOpen = $state(true);
   let rightPanelOpen = $state(true);
+  let activeTab = $state('Tools');
   let combineModalOpen = $state(false);
   let isStampMode = $state(false);
   let isMaximized = $state(false);
@@ -370,7 +376,7 @@
           onclick={() => setTool('Hand')}
           title="Hand Tool (H)"
         >
-          <HandHand size={18} weight={currentTool === 'Hand' ? "fill" : "regular"} />
+          <Hand size={18} weight={currentTool === 'Hand' ? "fill" : "regular"} />
         </button>
         <button 
           class="adobe-button p-1.5 rounded {currentTool === 'Select' ? 'bg-white/10 text-accent-blue shadow-inner' : ''}" 
@@ -520,7 +526,7 @@
                    <div class="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent w-full my-10"></div>
                    <div class="grid grid-cols-3 gap-8 opacity-40">
                       <div class="flex flex-col items-center space-y-2">
-                        <div class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center"><HandHand size={20} /></div>
+                        <div class="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center"><Hand size={20} /></div>
                         <span class="text-[9px] font-bold uppercase tracking-widest">Fluid Pan</span>
                       </div>
                       <div class="flex flex-col items-center space-y-2">

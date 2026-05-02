@@ -1,5 +1,5 @@
-#include "HapRenderer.h"
-#include "PdfBinaryParser.h"
+#include "../include/HapRenderer.h"
+#include "../include/PdfBinaryParser.h"
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>

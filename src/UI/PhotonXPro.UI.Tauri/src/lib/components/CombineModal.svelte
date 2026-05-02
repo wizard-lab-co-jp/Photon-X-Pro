@@ -91,13 +91,16 @@
 
       <!-- File List -->
       <div 
+        role="list"
         class="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar transition-colors duration-200 {isDragging ? 'bg-accent-blue/10 border-2 border-dashed border-accent-blue/50 mx-2 my-2 rounded-lg' : ''}"
         ondragover={handleDragOver}
         ondragleave={handleDragLeave}
         ondrop={handleDrop}
+        aria-label="Files to combine"
       >
         {#each files as file, i}
           <div 
+            role="listitem"
             class="group flex items-center justify-between p-3 bg-white/5 border border-white/5 rounded-md hover:border-accent-blue/50 transition-all {draggedIndex === i ? 'opacity-40' : ''}"
             draggable="true"
             ondragstart={() => handleItemDragStart(i)}

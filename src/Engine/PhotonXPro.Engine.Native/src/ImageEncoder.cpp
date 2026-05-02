@@ -1,4 +1,4 @@
-#include "ImageEncoder.h"
+#include "../include/ImageEncoder.h"
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Graphics.Imaging.h>
