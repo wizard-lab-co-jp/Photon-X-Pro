@@ -65,6 +65,6 @@ jobs:
           tagName: v__VERSION__ # the action automatically replaces this with the version from tauri.conf.json
           releaseName: "Photon X Pro v__VERSION__"
           releaseBody: "See the assets below to download the installer."
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           projectPath: src/UI/PhotonXPro.UI.Tauri
