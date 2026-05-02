@@ -9,7 +9,7 @@
     Printer, 
     MagnifyingGlassPlus, 
     MagnifyingGlassMinus,
-    HandHand,
+    Hand,
     Cursor,
     CaretLeft,
     CaretRight,
@@ -291,9 +291,12 @@
       <div class="text-xxs font-black tracking-[0.2em] text-accent-blue ml-2 italic">PHOTON X PRO</div>
       <div class="flex space-x-0.5 h-full items-end overflow-x-auto custom-scrollbar no-drag">
         {#each documents as doc}
-          <button 
+          <div 
+            role="button"
+            tabindex="0"
             onclick={() => documentStore.setActive(doc.id)}
-            class="px-4 py-1.5 {doc.id === $documentStore.activeId ? 'bg-panel border-t-2 border-accent-blue' : 'hover:bg-white/5 text-text-muted'} text-[10px] flex items-center space-x-3 rounded-t-sm shadow-inner transition-all whitespace-nowrap"
+            onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') documentStore.setActive(doc.id); }}
+            class="px-4 py-1.5 {doc.id === $documentStore.activeId ? 'bg-panel border-t-2 border-accent-blue' : 'hover:bg-white/5 text-text-muted'} text-[10px] flex items-center space-x-3 rounded-t-sm shadow-inner transition-all whitespace-nowrap cursor-pointer"
           >
             <span class="font-medium">{doc.name}</span>
             <button 
@@ -302,7 +305,7 @@
             >
               <X size={10} />
             </button>
-          </button>
+          </div>
         {/each}
       </div>
     </div>
