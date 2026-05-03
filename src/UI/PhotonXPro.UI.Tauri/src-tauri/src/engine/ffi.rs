@@ -1,50 +1,37 @@
 use libloading::{Library, Symbol};
 use std::os::raw::{c_char, c_int};
-use std::sync::Arc;
-use lazy_static::lazy_static;
+use std::sync::{Arc, OnceLock};
+use std::path::Path;
 
 pub struct NativeEngine {
     lib: Arc<Library>,
 }
 
-lazy_static! {
-    pub static ref ENGINE: Option<NativeEngine> = {
-        unsafe {
-            // Priority 1: Current executable directory (Prod)
-            let exe_path = std::env::current_exe().ok();
-            let exe_dir = exe_path.as_ref().and_then(|p| p.parent());
-            
-            let mut search_paths = Vec::new();
-            if let Some(dir) = exe_dir {
-                search_paths.push(dir.join("PhotonXPro.Engine.Native.dll"));
-                search_paths.push(dir.join("resources").join("PhotonXPro.Engine.Native.dll"));
-            }
-            
-            // Priority 2: Hardcoded relative path (Dev)
-            search_paths.push(std::path::PathBuf::from("../../../../../../build/Engine/Native/bin/Release/PhotonXPro.Engine.Native.dll"));
-            search_paths.push(std::path::PathBuf::from("PhotonXPro.Engine.Native.dll"));
-
-            for path in search_paths {
-                if path.exists() {
-                    if let Ok(lib) = Library::new(&path) {
-                        return Some(NativeEngine { lib: Arc::new(lib) });
-                    }
-                }
-            }
-            
-            // Fallback: system-wide search
-            match Library::new("PhotonXPro.Engine.Native.dll") {
-                Ok(lib) => Some(NativeEngine { lib: Arc::new(lib) }),
-                Err(e) => {
-                    eprintln!("Failed to load native engine: {}", e);
-                    None
-                }
-            }
-        }
-    };
-}
+pub static ENGINE: OnceLock<NativeEngine> = OnceLock::new();
 
 impl NativeEngine {
+    pub fn init(path: &Path) -> Result<(), String> {
+        if !path.exists() {
+            return Err(format!("DLL not found at: {:?}", path));
+        }
+
+        unsafe {
+            match Library::new(path) {
+                Ok(lib) => {
+                    let engine = NativeEngine { lib: Arc::new(lib) };
+                    // Verify essential symbols
+                    if engine.lib.get::<unsafe extern "C" fn(*const c_char) -> bool>(b"OpenPdf").is_err() {
+                        return Err("Failed to find 'OpenPdf' in DLL".into());
+                    }
+                    
+                    ENGINE.set(engine).map_err(|_| "Engine already initialized".to_string())?;
+                    Ok(())
+                }
+                Err(e) => Err(format!("Failed to load library: {}", e)),
+            }
+        }
+    }
+
     pub unsafe fn open_pdf(&self, path: *const c_char) -> bool {
         let func: Symbol<unsafe extern "C" fn(*const c_char) -> bool> = self.lib.get(b"OpenPdf").unwrap();
         func(path)

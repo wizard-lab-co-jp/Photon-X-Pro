@@ -4,7 +4,7 @@ use base64::{Engine as _, engine::general_purpose};
 
 #[tauri::command]
 pub fn open_pdf(path: String) -> Result<i32, String> {
-    let engine = ENGINE.as_ref().ok_or("Native engine not loaded")?;
+    let engine = ENGINE.get().ok_or("Native engine not loaded")?;
     let c_path = CString::new(path).map_err(|e| e.to_string())?;
     
     unsafe {
@@ -18,7 +18,7 @@ pub fn open_pdf(path: String) -> Result<i32, String> {
 
 #[tauri::command]
 pub fn render_page(index: i32, width: i32, height: i32) -> Result<String, String> {
-    let engine = ENGINE.as_ref().ok_or("Native engine not loaded")?;
+    let engine = ENGINE.get().ok_or("Native engine not loaded")?;
     let stride = width * 4;
     let mut buffer = vec![0u8; (stride * height) as usize];
     
@@ -43,7 +43,7 @@ pub fn render_page(index: i32, width: i32, height: i32) -> Result<String, String
 
 #[tauri::command]
 pub fn merge_pdfs(paths: Vec<String>, output: String) -> Result<bool, String> {
-    let engine = ENGINE.as_ref().ok_or("Native engine not loaded")?;
+    let engine = ENGINE.get().ok_or("Native engine not loaded")?;
     use std::os::raw::c_char;
     
     let c_paths: Vec<CString> = paths.iter()
@@ -72,7 +72,7 @@ pub fn apply_stamp(
     stamp_w: i32,
     stamp_h: i32
 ) -> Result<String, String> {
-    let engine = ENGINE.as_ref().ok_or("Native engine not loaded")?;
+    let engine = ENGINE.get().ok_or("Native engine not loaded")?;
     
     // 1. Render original page
     let stride = page_w * 4;
@@ -110,7 +110,7 @@ pub fn apply_stamp(
 
 #[tauri::command]
 pub fn save_pdf(output_path: String, deleted_pages: Vec<i32>) -> Result<bool, String> {
-    let engine = ENGINE.as_ref().ok_or("Native engine not loaded")?;
+    let engine = ENGINE.get().ok_or("Native engine not loaded")?;
     let c_output = CString::new(output_path).map_err(|e| e.to_string())?;
     
     unsafe {

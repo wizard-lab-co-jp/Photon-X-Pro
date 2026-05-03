@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
   import { Window } from "@tauri-apps/api/window";
+  import { listen } from "@tauri-apps/api/event";
   import { fade, slide } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
   import { 
@@ -288,6 +289,16 @@
       console.error(e);
     }
   }
+
+  // Listen for file open events from Rust (CLI)
+  $effect(() => {
+    const unlisten = listen<string>("open-file", (event) => {
+      openFile(event.payload);
+    });
+    return () => {
+      unlisten.then(f => f());
+    };
+  });
 </script>
 
 <!-- svelte:ignore a11y-no-noninteractive-element-interactions -->
